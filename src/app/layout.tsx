@@ -1,7 +1,11 @@
+"use client";
+
 import "@mantine/core/styles.css";
 
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import React from "react";
+
+import { theme } from "@/theme";
 
 export default function RootLayout({
   children,
@@ -14,7 +18,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
   );
