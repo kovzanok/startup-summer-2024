@@ -34,7 +34,8 @@
           "vote_count"
         ]
       }
-    ]
+    ],
+    "react/jsx-props-no-spreading": "off"
   },
   "plugins": ["simple-import-sort"],
   "parserOptions": {

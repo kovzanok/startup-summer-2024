@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Card,
   Flex,
+  Skeleton,
   Text,
   Title,
   useMantineTheme,
@@ -13,7 +14,10 @@ import posterPlaceholderSrc from "@/../public/poster-placeholder.png";
 import StartIcon from "@/../public/star.svg";
 import { Genre, Movie } from "@/shared/types";
 
-type MovieCardProps = Movie & { genres: Genre[] | undefined };
+type MovieCardProps = Movie & {
+  genres: Genre[] | undefined;
+  isGenresLoading: boolean;
+};
 
 export function MovieCard({
   genre_ids,
@@ -24,6 +28,7 @@ export function MovieCard({
   vote_average,
   vote_count,
   genres,
+  isGenresLoading,
 }: MovieCardProps) {
   const theme = useMantineTheme();
   return (
@@ -64,6 +69,13 @@ export function MovieCard({
           <Flex mt="auto" columnGap={8} wrap="wrap">
             <Text c={theme.colors.gray[1]}>Genres</Text>
             <Text>
+              {isGenresLoading && (
+                <Flex columnGap={4}>
+                  <Skeleton width="70px" h={25} />
+                  <Skeleton width="50px" h={25} />
+                  <Skeleton width="60px" h={25} />
+                </Flex>
+              )}
               {genres
                 ?.filter(({ id }) => genre_ids.includes(id))
                 .slice(0, 3)
