@@ -1,2 +1,2 @@
-export type { GenreRes } from "./genre";
-export type { DiscoverMovieRes } from "./movie";
+export type { Genre, GenreRes } from "./genre";
+export type { DiscoverMovieRes, Movie } from "./movie";
