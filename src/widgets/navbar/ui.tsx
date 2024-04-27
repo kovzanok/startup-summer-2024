@@ -2,7 +2,8 @@
 
 import { AppShell, Flex, useMantineTheme } from "@mantine/core";
 
-import { Logo } from "./components/logo";
+import { Logo } from "@/shared/ui";
+
 import { NavLink } from "./components/nav-link";
 import { links } from "./const";
 
