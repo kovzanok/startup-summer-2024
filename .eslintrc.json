@@ -19,7 +19,22 @@
         "tsx": "never"
       }
     ],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "camelcase": [
+      "error",
+      {
+        "allow": [
+          "backdrop_path",
+          "genre_ids",
+          "original_language",
+          "original_title",
+          "poster_path",
+          "release_date",
+          "vote_average",
+          "vote_count"
+        ]
+      }
+    ]
   },
   "plugins": ["simple-import-sort"],
   "parserOptions": {
