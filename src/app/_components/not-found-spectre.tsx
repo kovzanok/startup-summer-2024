@@ -5,7 +5,7 @@ export function NotFoundSpectre() {
   return (
     <Flex>
       {theme.colors.notFound.map(color => (
-        <Box w={93} h={50} bg={color} />
+        <Box key={color} w={93} h={50} bg={color} />
       ))}
     </Flex>
   );
