@@ -6,7 +6,12 @@ const nextConfig = {
         source: "/discover/movie",
         destination: `${process.env.BASE_API_URL}/discover/movie?api_key=${process.env.API_KEY}`,
       },
+      {
+        source: "/genre/movie/list",
+        destination: `${process.env.BASE_API_URL}/genre/movie/list?api_key=${process.env.API_KEY}`,
+      },
     ];
+  },
   },
 };
 
