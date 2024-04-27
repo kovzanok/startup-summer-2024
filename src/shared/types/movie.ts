@@ -7,7 +7,7 @@ export type Movie = {
   original_title: string;
   overview: string;
   popularity: 2061.982;
-  poster_path: string;
+  poster_path?: string;
   release_date: Date;
   title: string;
   video: boolean;
