@@ -1,3 +1,5 @@
+"use client";
+
 import { Flex, Title, useMantineTheme } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
