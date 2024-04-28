@@ -8,6 +8,7 @@ import { CardSkeleton, MovieCard } from "@/entitites/movie-card";
 import { fetcher } from "@/shared/lib";
 import { GenreRes, Movie } from "@/shared/types";
 
+import { ListFallback } from "./components/fallback";
 import Pagination from "./components/pagination";
 
 type MovieListProps = {
@@ -40,6 +41,7 @@ export function MovieList({ isLoading, movieList, total }: MovieListProps) {
           </Grid.Col>
         ))}
       </Grid>
+      {!movieList && !isLoading && <ListFallback />}
       {total && (
         <Box mt={24} w="fit-content" ml="auto">
           <Pagination total={total} />
