@@ -3,9 +3,10 @@ import { useForm } from "@mantine/form";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
-import { useClearSearchParams, useUpdateSearchParams } from "@/shared/hooks";
+import { useClearSearchParams } from "@/shared/hooks";
 
 import { YearSelect } from "./components/year-select";
+import { useUpdateSearchParamsWithoutPage } from "./hooks";
 
 type FormValues = {
   primary_release_year?: string | null;
@@ -20,11 +21,12 @@ export function FilterForm() {
     }),
     [searchParams],
   );
-  const updateSearchParams = useUpdateSearchParams();
+  const updateSearchParams = useUpdateSearchParamsWithoutPage();
   const clearSearchParams = useClearSearchParams();
-  const { getInputProps, reset, onReset, values } = useForm<FormValues>({
-    initialValues,
-  });
+  const { getInputProps, reset, onReset, values, setInitialValues } =
+    useForm<FormValues>({
+      initialValues,
+    });
 
   const register = useCallback(
     (name: keyof FormValues) => {
