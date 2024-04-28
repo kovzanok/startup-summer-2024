@@ -41,8 +41,10 @@ export function MovieList({ isLoading, movieList, total }: MovieListProps) {
           </Grid.Col>
         ))}
       </Grid>
-      {!movieList && !isLoading && <ListFallback />}
-      {total && (
+      {((!movieList && !isLoading) || movieList?.length === 0) && (
+        <ListFallback />
+      )}
+      {total && movieList?.length !== 0 && (
         <Box mt={24} w="fit-content" ml="auto">
           <Pagination total={total} />
         </Box>
