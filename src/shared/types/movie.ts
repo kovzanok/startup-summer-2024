@@ -6,7 +6,7 @@ export type Movie = {
   original_language: string;
   original_title: string;
   overview: string;
-  popularity: 2061.982;
+  popularity: number;
   poster_path?: string;
   release_date: Date;
   title: string;
@@ -18,6 +18,6 @@ export type Movie = {
 export type DiscoverMovieRes = {
   page: number;
   results: Movie[];
-  total_page: number;
+  total_pages: number;
   total_results: number;
 };
