@@ -9,7 +9,7 @@ import {
   useCombobox,
   useMantineTheme,
 } from "@mantine/core";
-import React, { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import Chevron from "@/../public/chevron.svg";
 
@@ -17,8 +17,8 @@ import styles from "./styles.module.css";
 
 export type SelectOptionType = { value: string; name: string };
 
-type CustomSelectProps = ComboboxProps & {
-  initialValue?: string | null;
+export type CustomSelectProps = ComboboxProps & {
+  value?: string | null;
   label?: string;
   onChange?: (value: string) => void;
   placehoder?: string;
@@ -27,7 +27,7 @@ type CustomSelectProps = ComboboxProps & {
 
 export function CustomSelect({
   label,
-  initialValue,
+  value,
   options,
   placehoder,
   onChange,
@@ -36,7 +36,6 @@ export function CustomSelect({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
   const theme = useMantineTheme();
-  const [value, setValue] = useState<string | null | undefined>(initialValue);
   const selectedOption = useMemo(
     () => options.find(item => item.value === value),
     [options, value],
@@ -63,7 +62,6 @@ export function CustomSelect({
       <Text fw={700}>{label}</Text>
       <Combobox
         onOptionSubmit={val => {
-          setValue(val);
           if (onChange) {
             onChange(val);
           }

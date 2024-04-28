@@ -29,7 +29,7 @@ export function SortSelect() {
   return (
     <Box mb={24} ml="auto" maw={284}>
       <CustomSelect
-        initialValue={
+        value={
           options.find(o => o.value === searchParams.get("sort_by"))
             ? searchParams.get("sort_by")
             : "popularity.desc"
