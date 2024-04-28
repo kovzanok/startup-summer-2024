@@ -35,39 +35,53 @@ export default function Pagination({ total }: PaginationProps) {
     >
       <Flex columnGap={8}>
         <PaginationPrevious disabled={active === 1} onClick={previous} />
-        {active === 1 && (
+        {total < 3 ? (
           <>
             <PaginationControl active>{active}</PaginationControl>
-            <PaginationControl onClick={() => setPage(active + 1)}>
-              {active + 1}
-            </PaginationControl>
-            <PaginationControl onClick={() => setPage(active + 2)}>
-              {active + 2}
-            </PaginationControl>
+            {total === 2 && (
+              <PaginationControl onClick={() => setPage(active + 1)}>
+                {active + 1}
+              </PaginationControl>
+            )}
           </>
-        )}
-        {active === total && (
+        ) : (
           <>
-            <PaginationControl onClick={() => setPage(active - 2)}>
-              {active - 2}
-            </PaginationControl>
-            <PaginationControl onClick={() => setPage(active - 1)}>
-              {active - 1}
-            </PaginationControl>
-            <PaginationControl active>{active}</PaginationControl>
+            {active === 1 && (
+              <>
+                <PaginationControl active>{active}</PaginationControl>
+                <PaginationControl onClick={() => setPage(active + 1)}>
+                  {active + 1}
+                </PaginationControl>
+                <PaginationControl onClick={() => setPage(active + 2)}>
+                  {active + 2}
+                </PaginationControl>
+              </>
+            )}
+            {active === total && (
+              <>
+                <PaginationControl onClick={() => setPage(active - 2)}>
+                  {active - 2}
+                </PaginationControl>
+                <PaginationControl onClick={() => setPage(active - 1)}>
+                  {active - 1}
+                </PaginationControl>
+                <PaginationControl active>{active}</PaginationControl>
+              </>
+            )}
+            {active !== 1 && active !== total && (
+              <>
+                <PaginationControl onClick={() => setPage(active - 1)}>
+                  {active - 1}
+                </PaginationControl>
+                <PaginationControl active>{active}</PaginationControl>
+                <PaginationControl onClick={() => setPage(active + 1)}>
+                  {active + 1}
+                </PaginationControl>
+              </>
+            )}
           </>
         )}
-        {active !== 1 && active !== total && (
-          <>
-            <PaginationControl onClick={() => setPage(active - 1)}>
-              {active - 1}
-            </PaginationControl>
-            <PaginationControl active>{active}</PaginationControl>
-            <PaginationControl onClick={() => setPage(active + 1)}>
-              {active + 1}
-            </PaginationControl>
-          </>
-        )}
+
         <PaginationNext disabled={active === total} onClick={next} />
       </Flex>
     </PaginationRoot>
