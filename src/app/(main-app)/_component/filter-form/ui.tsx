@@ -42,8 +42,9 @@ export function FilterForm() {
   return (
     <form
       onReset={e => {
-        clearSearchParams(Object.keys(values));
+        setInitialValues({});
         onReset(e);
+        clearSearchParams(Object.keys(values));
       }}
     >
       <Flex align="flex-end" columnGap={16} my={24}>
