@@ -37,7 +37,8 @@
           "release_date",
           "vote_average",
           "vote_count",
-          "total_pages"
+          "total_pages",
+          "primary_release_year"
         ]
       }
     ],
