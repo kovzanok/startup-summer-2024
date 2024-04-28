@@ -31,7 +31,8 @@
           "poster_path",
           "release_date",
           "vote_average",
-          "vote_count"
+          "vote_count",
+          "total_pages"
         ]
       }
     ],
