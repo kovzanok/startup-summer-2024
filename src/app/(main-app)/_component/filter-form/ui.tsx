@@ -1,4 +1,4 @@
-import { Button, Flex } from "@mantine/core";
+import { Button, Flex, useMantineTheme } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -13,6 +13,7 @@ type FormValues = {
 
 export function FilterForm() {
   const searchParams = useSearchParams();
+  const theme = useMantineTheme();
   const initialValues = useMemo(
     () => ({
       primary_release_year: searchParams.get("primary_release_year"),
@@ -50,6 +51,7 @@ export function FilterForm() {
       <Flex align="flex-end" columnGap={16} my={24}>
         <YearSelect {...register("primary_release_year")} />
         <Button
+          c={theme.colors.gray[1]}
           onClick={reset}
           type="reset"
           w="fit-content"
