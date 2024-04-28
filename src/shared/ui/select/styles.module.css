@@ -1,0 +1,17 @@
+.target {
+  @mixin hover {
+    border-color: #9854f6;
+  }
+  &:focus-within {
+    border-color: #9854f6;
+  }
+  &[data-expanded="true"] {
+    border-color: #9854f6;
+  }
+}
+
+.option {
+  @mixin hover {
+    background-color: #f2ebf9;
+  }
+}
