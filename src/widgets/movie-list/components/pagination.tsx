@@ -7,26 +7,23 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { usePagination } from "@mantine/hooks";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
-import { createQueryString } from "@/shared/lib";
+import { useUpdateSearchParams } from "@/shared/hooks";
 
 type PaginationProps = { total: number };
 
 export default function Pagination({ total }: PaginationProps) {
+  const updateSearchParams = useUpdateSearchParams();
   const theme = useMantineTheme();
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { next, previous, active, setPage } = usePagination({
     total,
     initialPage: 1,
     page: Number(searchParams.get("page")) || 1,
     onChange(page) {
-      router.push(
-        `${pathname}?${createQueryString(searchParams, "page", page)}`,
-      );
+      updateSearchParams("page", page);
     },
   });
   return (

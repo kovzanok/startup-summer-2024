@@ -1,8 +1,8 @@
 import { Box } from "@mantine/core";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
-import { createQueryString } from "@/shared/lib";
+import { useUpdateSearchParams } from "@/shared/hooks";
 import { CustomSelect, SelectOptionType } from "@/shared/ui";
 
 const options: SelectOptionType[] = [
@@ -21,13 +21,10 @@ const options: SelectOptionType[] = [
 ];
 
 export function SortSelect() {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const updateSearchParams = useUpdateSearchParams();
   const handleChange = (value: string) => {
-    router.push(
-      `${pathname}?${createQueryString(searchParams, "sort_by", value)}`,
-    );
+    updateSearchParams("sort_by", value);
   };
   return (
     <Box mb={24} ml="auto" maw={284}>
