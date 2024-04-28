@@ -23,7 +23,6 @@ export function MovieCard({
   genre_ids,
   poster_path,
   title,
-  original_title,
   release_date,
   vote_average,
   vote_count,
@@ -52,7 +51,7 @@ export function MovieCard({
             fw={600}
             c={theme.colors.purple[2]}
           >
-            {original_title}
+            {title}
           </Title>
           <Text lh="20px" c={theme.colors.gray[1]}>
             {new Date(release_date).getFullYear()}
