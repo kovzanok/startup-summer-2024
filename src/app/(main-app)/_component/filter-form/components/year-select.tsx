@@ -3,7 +3,7 @@ import { CustomSelect, CustomSelectProps, SelectOptionType } from "@/shared/ui";
 type YearSelectProps = Omit<
   CustomSelectProps,
   "label" | "placehoder" | "options"
-> & { value?: string };
+> & { value?: string; defaultValue?: string };
 
 const generateReleaseYearsArr = (start: number, end: number) => {
   const res: SelectOptionType[] = [];
@@ -15,7 +15,7 @@ const generateReleaseYearsArr = (start: number, end: number) => {
 
 const options = generateReleaseYearsArr(1874, new Date().getFullYear() + 8);
 
-export function YearSelect({ onChange, value }: YearSelectProps) {
+export function YearSelect({ onChange, value, defaultValue }: YearSelectProps) {
   return (
     <CustomSelect
       label="Release year"
@@ -25,7 +25,7 @@ export function YearSelect({ onChange, value }: YearSelectProps) {
           onChange(val);
         }
       }}
-      value={value}
+      value={value || defaultValue}
       options={options}
     />
   );
