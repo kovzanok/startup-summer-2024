@@ -12,7 +12,7 @@
 
   &:disabled {
     background-color: #eeeeee7f;
-    border-color: gray;
+    border-color: rgb(185, 185, 185);
   }
 }
 
