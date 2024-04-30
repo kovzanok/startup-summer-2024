@@ -38,7 +38,8 @@
           "vote_average",
           "vote_count",
           "total_pages",
-          "primary_release_year"
+          "primary_release_year",
+          "with_genres"
         ]
       }
     ],

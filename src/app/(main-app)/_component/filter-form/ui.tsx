@@ -4,6 +4,7 @@ import { useCallback, useMemo } from "react";
 
 import { useClearSearchParams } from "@/shared/hooks";
 
+import { GenreSelect } from "./components/genre-select";
 import { RatingRange } from "./components/rating-range";
 import { YearSelect } from "./components/year-select";
 import { FormProvider, useForm } from "./form-context";
@@ -16,6 +17,7 @@ export function FilterForm() {
   const initialValues = useMemo(
     () => ({
       primary_release_year: searchParams.get("primary_release_year") || "",
+      with_genres: searchParams.get("with_genres") || "",
       minVote: Number(searchParams.get("vote_average.gte")) || "",
       maxVote: Number(searchParams.get("vote_average.lte")) || "",
     }),
@@ -89,6 +91,7 @@ export function FilterForm() {
         }}
       >
         <Flex align="flex-start" columnGap={16} my={24}>
+          <GenreSelect {...register("with_genres")} />
           <YearSelect {...register("primary_release_year")} />
           <RatingRange />
           <Button
