@@ -1,2 +1,5 @@
 export { fetcher } from "./fetcher";
-export { createQueryString } from "./search-params";
+export {
+  createQueryString,
+  deleteValueFromSearchParams,
+} from "./search-params";

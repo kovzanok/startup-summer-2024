@@ -1,0 +1,10 @@
+.input {
+  caret-color: #9854f6;
+  @mixin hover {
+    border-color: #9854f6;
+  }
+  &:focus,
+  &:focus-within {
+    border-color: #9854f6;
+  }
+}

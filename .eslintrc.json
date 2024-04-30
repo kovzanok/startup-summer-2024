@@ -1,5 +1,10 @@
 {
-  "extends": ["next/core-web-vitals", "airbnb", "prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
@@ -32,15 +37,21 @@
           "release_date",
           "vote_average",
           "vote_count",
-          "total_pages"
+          "total_pages",
+          "primary_release_year",
+          "with_genres"
         ]
       }
     ],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"]
   },
   "plugins": ["simple-import-sort"],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "project": "./tsconfig.json"
   }
 }

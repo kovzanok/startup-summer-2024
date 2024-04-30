@@ -8,3 +8,13 @@ export const createQueryString = (
 
   return params.toString();
 };
+
+export const deleteValueFromSearchParams = (
+  searchParams: URLSearchParams,
+  name: string,
+) => {
+  const params = new URLSearchParams(searchParams.toString());
+  params.delete(name);
+
+  return params;
+};

@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/discover/movie",
-        destination: `${process.env.BASE_API_URL}/discover/movie?api_key=${process.env.API_KEY}`,
+        destination: `${process.env.BASE_API_URL}/discover/movie?api_key=${process.env.API_KEY}&language=en-US`,
       },
       {
         source: "/genre/movie/list",
