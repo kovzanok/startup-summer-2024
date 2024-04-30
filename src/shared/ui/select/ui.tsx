@@ -23,6 +23,8 @@ export type CustomSelectProps = ComboboxProps & {
   onChange?: (value: string) => void;
   placehoder?: string;
   options: SelectOptionType[];
+  maw?: string | number | undefined;
+  width?: string | number;
 };
 
 export function CustomSelect({
@@ -32,6 +34,8 @@ export function CustomSelect({
   placehoder,
   onChange,
   disabled,
+  maw,
+  width,
 }: CustomSelectProps) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -59,7 +63,7 @@ export function CustomSelect({
     [options, selectedOption],
   );
   return (
-    <Flex direction="column" rowGap={8}>
+    <Flex w={width} maw={maw} direction="column" rowGap={8}>
       <Text fw={700}>{label}</Text>
       <Combobox
         disabled={disabled}

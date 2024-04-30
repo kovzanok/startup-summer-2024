@@ -14,10 +14,12 @@ export function GenreSelect({
   onChange,
   value,
   defaultValue,
+  ...props
 }: GenreSelectProps) {
   const { data: genres } = useSWR<GenreRes>("/genre/movie/list", fetcher);
   return (
     <CustomSelect
+      {...props}
       label="Genre"
       placehoder="Select genre"
       options={

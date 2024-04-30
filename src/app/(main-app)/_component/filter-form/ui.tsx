@@ -90,11 +90,16 @@ export function FilterForm() {
           ]);
         }}
       >
-        <Flex align="flex-start" columnGap={16} my={24}>
-          <GenreSelect {...register("with_genres")} />
-          <YearSelect {...register("primary_release_year")} />
+        <Flex align="flex-start" justify="space-between" columnGap={16} my={24}>
+          <GenreSelect width="100%" maw="283px" {...register("with_genres")} />
+          <YearSelect
+            width="100%"
+            maw="283px"
+            {...register("primary_release_year")}
+          />
           <RatingRange />
           <Button
+            p={0}
             pos="relative"
             top="50%"
             style={{ transform: "translateY(100%)" }}

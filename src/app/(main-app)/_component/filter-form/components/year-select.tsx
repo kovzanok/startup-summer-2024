@@ -15,9 +15,15 @@ const generateReleaseYearsArr = (start: number, end: number) => {
 
 const options = generateReleaseYearsArr(1874, new Date().getFullYear() + 8);
 
-export function YearSelect({ onChange, value, defaultValue }: YearSelectProps) {
+export function YearSelect({
+  onChange,
+  value,
+  defaultValue,
+  ...props
+}: YearSelectProps) {
   return (
     <CustomSelect
+      {...props}
       label="Release year"
       placehoder="Select release year"
       onChange={val => {
