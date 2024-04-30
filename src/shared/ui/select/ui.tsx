@@ -31,6 +31,7 @@ export function CustomSelect({
   options,
   placehoder,
   onChange,
+  disabled,
 }: CustomSelectProps) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -61,6 +62,7 @@ export function CustomSelect({
     <Flex direction="column" rowGap={8}>
       <Text fw={700}>{label}</Text>
       <Combobox
+        disabled={disabled}
         onOptionSubmit={val => {
           if (onChange) {
             onChange(val);
@@ -73,6 +75,7 @@ export function CustomSelect({
       >
         <Combobox.Target>
           <InputBase
+            disabled={disabled}
             component="button"
             type="button"
             pointer

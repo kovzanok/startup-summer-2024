@@ -1,5 +1,6 @@
 .target {
   @mixin hover {
+    
     border-color: #9854f6;
   }
   &:focus-within {
@@ -7,6 +8,11 @@
   }
   &[data-expanded="true"] {
     border-color: #9854f6;
+  }
+
+  &:disabled {
+    background-color: #eeeeee7f;
+    border-color: gray;
   }
 }
 
