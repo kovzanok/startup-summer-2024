@@ -87,6 +87,7 @@ export function FilterForm() {
             ...Object.keys(values),
             "vote_average.gte",
             "vote_average.lte",
+            "page",
           ]);
         }}
       >
