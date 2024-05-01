@@ -1,12 +1,14 @@
 "use client";
 
 import { Box, Grid } from "@mantine/core";
-import React from "react";
+import { useState } from "react";
 import useSWR from "swr";
 
 import { CardSkeleton, MovieCard } from "@/entitites/movie-card";
+import { MovieRatingModal } from "@/features";
+import { useMovieRating } from "@/shared/hooks";
 import { fetcher } from "@/shared/lib";
-import { GenreRes, Movie } from "@/shared/types";
+import { GenreRes, Movie, RatedMovie } from "@/shared/types";
 
 import { ListFallback } from "./components/fallback";
 import Pagination from "./components/pagination";
@@ -22,6 +24,8 @@ export function MovieList({ isLoading, movieList, total }: MovieListProps) {
     "/genre/movie/list",
     fetcher,
   );
+  const [selectedMovie, setSelectedMovie] = useState<RatedMovie | null>(null);
+  const [ratedMovies, rateMovie] = useMovieRating();
   return (
     <>
       <Grid gutter={8}>
@@ -34,6 +38,8 @@ export function MovieList({ isLoading, movieList, total }: MovieListProps) {
         {movieList?.map(movie => (
           <Grid.Col key={movie.id} span={6}>
             <MovieCard
+              openRateModal={setSelectedMovie}
+              userRating={ratedMovies.find(r => movie.id === r.id)?.rating}
               isGenresLoading={isGenresLoading}
               genres={genres?.genres}
               {...movie}
@@ -49,6 +55,12 @@ export function MovieList({ isLoading, movieList, total }: MovieListProps) {
           <Pagination total={total} />
         </Box>
       )}
+      <MovieRatingModal
+        rateMovie={rateMovie}
+        movie={selectedMovie}
+        opened={Boolean(selectedMovie)}
+        onClose={() => setSelectedMovie(null)}
+      />
     </>
   );
 }

@@ -3,6 +3,7 @@ import {
   Card,
   Flex,
   Image,
+  Rating,
   Skeleton,
   Text,
   useMantineTheme,
@@ -12,13 +13,14 @@ import Link from "next/link";
 import React from "react";
 
 import posterPlaceholder from "@/../public/poster-placeholder.png";
-import StartIcon from "@/../public/star.svg";
-import { Genre, Movie } from "@/shared/types";
+import { Genre, Movie, RatedMovie } from "@/shared/types";
 import { MovieInfo } from "@/shared/ui";
 
 type MovieCardProps = Movie & {
   genres: Genre[] | undefined;
   isGenresLoading: boolean;
+  userRating?: number;
+  openRateModal: (movie: RatedMovie) => void;
 };
 
 export function MovieCard({
@@ -31,8 +33,14 @@ export function MovieCard({
   vote_count,
   genres,
   isGenresLoading,
+  userRating,
+  openRateModal,
 }: MovieCardProps) {
   const theme = useMantineTheme();
+  const handleMovieRate: React.MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+    openRateModal({ id, title, rating: userRating || 0 });
+  };
   return (
     <Link style={{ textDecoration: "none" }} href={`/${id}`}>
       <Card p={24}>
@@ -75,8 +83,25 @@ export function MovieCard({
               )}
             </Flex>
           </Flex>
-          <ActionIcon ml="auto" variant="transparent">
-            <StartIcon color={theme.colors.gray[2]} />
+          <ActionIcon
+            w="fit-content"
+            onClick={handleMovieRate}
+            ml="auto"
+            variant="transparent"
+          >
+            <Rating
+              styles={{ label: { cursor: "pointer" } }}
+              size={28}
+              readOnly
+              value={userRating}
+              color={theme.colors.purple[2]}
+              count={1}
+            />
+            {Boolean(userRating) && (
+              <Text fw={600} c="black">
+                {userRating}
+              </Text>
+            )}
           </ActionIcon>
         </Flex>
       </Card>
