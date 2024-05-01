@@ -1,6 +1,6 @@
 "use client";
 
-import { AppShell } from "@mantine/core";
+import { AppShell, useMantineTheme } from "@mantine/core";
 import React from "react";
 
 import { NavBar } from "@/widgets/navbar";
@@ -10,10 +10,11 @@ export default function MainLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = useMantineTheme();
   return (
     <AppShell navbar={{ width: 280, breakpoint: "md" }}>
       <NavBar />
-      <AppShell.Main>{children}</AppShell.Main>
+      <AppShell.Main bg={theme.colors.gray[0]}>{children}</AppShell.Main>
     </AppShell>
   );
 }
