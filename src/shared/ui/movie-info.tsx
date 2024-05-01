@@ -29,7 +29,7 @@ export function MovieInfo({
         <Text fw={600} lh="20px">
           {vote_average.toFixed(1)}
         </Text>
-        <Text c={theme.colors.gray[1]} ml={4}>
+        <Text c={theme.colors.slate[1]} ml={4}>
           ({vote_count})
         </Text>
       </Flex>

@@ -19,7 +19,7 @@ import { NotFoundSpectre } from "./_components/not-found-spectre";
 export default function NotFoundPage() {
   const theme = useMantineTheme();
   return (
-    <Box h="100vh" bg={theme.colors.gray[0]}>
+    <Box h="100vh" bg={theme.colors.slate[0]}>
       <header>
         <Container maw={1440} p={24}>
           <Logo />

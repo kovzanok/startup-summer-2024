@@ -104,7 +104,7 @@ export function FilterForm() {
             pos="relative"
             top="50%"
             style={{ transform: "translateY(100%)" }}
-            c={theme.colors.gray[1]}
+            c={theme.colors.slate[1]}
             type="reset"
             w="fit-content"
             variant="transparent"

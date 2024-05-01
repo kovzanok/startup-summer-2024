@@ -14,7 +14,7 @@ export default function MainLayout({
   return (
     <AppShell navbar={{ width: 280, breakpoint: "md" }}>
       <NavBar />
-      <AppShell.Main bg={theme.colors.gray[0]}>{children}</AppShell.Main>
+      <AppShell.Main bg={theme.colors.slate[0]}>{children}</AppShell.Main>
     </AppShell>
   );
 }

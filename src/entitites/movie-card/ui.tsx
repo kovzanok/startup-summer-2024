@@ -38,7 +38,7 @@ export function MovieCard({
       <Card p={24}>
         <Flex columnGap={16}>
           <Image
-            style={{ border: `1px solid ${theme.colors.gray[3]}` }}
+            style={{ border: `1px solid ${theme.colors.slate[3]}` }}
             component={NextImage}
             w={120}
             width={120}
@@ -57,7 +57,7 @@ export function MovieCard({
               vote_count={vote_count}
             />
             <Flex columnGap={8} wrap="wrap">
-              <Text c={theme.colors.gray[1]}>Genres</Text>
+              <Text c={theme.colors.slate[1]}>Genres</Text>
               {isGenresLoading ? (
                 <Flex columnGap={4}>
                   <Skeleton width="70px" h={25} />

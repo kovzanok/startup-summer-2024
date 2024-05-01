@@ -81,7 +81,7 @@ export function PageContent({
           </Breadcrumbs>
           <Flex columnGap={16}>
             <Image
-              style={{ border: `1px solid ${theme.colors.gray[3]}` }}
+              style={{ border: `1px solid ${theme.colors.slate[3]}` }}
               component={NextImage}
               w={250}
               width={250}
@@ -104,7 +104,7 @@ export function PageContent({
                 {movieStats.map(({ name, value }) => (
                   <Fragment key={name}>
                     <Grid.Col span={4} key={name}>
-                      <Text c={theme.colors.gray[1]}>{name}</Text>
+                      <Text c={theme.colors.slate[1]}>{name}</Text>
                     </Grid.Col>
                     <Grid.Col span={8}>
                       <Text>{value}</Text>
@@ -114,7 +114,7 @@ export function PageContent({
               </Grid>
             </Flex>
             <ActionIcon ml="auto" variant="transparent">
-              <StartIcon color={theme.colors.gray[2]} />
+              <StartIcon color={theme.colors.slate[2]} />
             </ActionIcon>
           </Flex>
         </Flex>
@@ -148,7 +148,7 @@ export function PageContent({
           {production_companies.map(({ id: companyId, name, logo_path }) => (
             <Flex key={companyId} columnGap={8} align="center">
               <Image
-                style={{ border: `1px solid ${theme.colors.gray[3]}` }}
+                style={{ border: `1px solid ${theme.colors.slate[3]}` }}
                 component={NextImage}
                 w={40}
                 miw={40}
