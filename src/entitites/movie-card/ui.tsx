@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Card,
   Flex,
   Image,
@@ -9,16 +8,17 @@ import {
 } from "@mantine/core";
 import NextImage from "next/image";
 import Link from "next/link";
-import React from "react";
+import { MouseEventHandler } from "react";
 
 import posterPlaceholder from "@/../public/poster-placeholder.png";
-import StartIcon from "@/../public/star.svg";
-import { Genre, Movie } from "@/shared/types";
-import { MovieInfo } from "@/shared/ui";
+import { Genre, Movie, RatedMovie } from "@/shared/types";
+import { MovieInfo, RatingButton } from "@/shared/ui";
 
 type MovieCardProps = Movie & {
   genres: Genre[] | undefined;
   isGenresLoading: boolean;
+  userRating?: number;
+  openRateModal: (movie: RatedMovie) => void;
 };
 
 export function MovieCard({
@@ -31,14 +31,20 @@ export function MovieCard({
   vote_count,
   genres,
   isGenresLoading,
+  userRating,
+  openRateModal,
 }: MovieCardProps) {
   const theme = useMantineTheme();
+  const handleMovieRate: MouseEventHandler<HTMLButtonElement> = e => {
+    e.preventDefault();
+    openRateModal({ id, title, rating: userRating || 0 });
+  };
   return (
     <Link style={{ textDecoration: "none" }} href={`/${id}`}>
       <Card p={24}>
         <Flex columnGap={16}>
           <Image
-            style={{ border: `1px solid ${theme.colors.gray[3]}` }}
+            style={{ border: `1px solid ${theme.colors.slate[3]}` }}
             component={NextImage}
             w={120}
             width={120}
@@ -57,7 +63,7 @@ export function MovieCard({
               vote_count={vote_count}
             />
             <Flex columnGap={8} wrap="wrap">
-              <Text c={theme.colors.gray[1]}>Genres</Text>
+              <Text c={theme.colors.slate[1]}>Genres</Text>
               {isGenresLoading ? (
                 <Flex columnGap={4}>
                   <Skeleton width="70px" h={25} />
@@ -75,9 +81,7 @@ export function MovieCard({
               )}
             </Flex>
           </Flex>
-          <ActionIcon ml="auto" variant="transparent">
-            <StartIcon color={theme.colors.gray[2]} />
-          </ActionIcon>
+          <RatingButton userRating={userRating} onClick={handleMovieRate} />
         </Flex>
       </Card>
     </Link>
