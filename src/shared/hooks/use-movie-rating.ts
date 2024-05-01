@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useLocalStorage } from "@mantine/hooks";
+import { useCallback } from "react";
 
 import { MovieRating } from "../types";
 
@@ -6,40 +7,27 @@ export const useMovieRating = (): [
   MovieRating[],
   (movieRating: MovieRating) => void,
 ] => {
-  const [moviesRating, setMoviesRating] = useState<MovieRating[]>([]);
-  useEffect(() => {
-    try {
-      const savedRating = localStorage.getItem("savedMoviesRating");
-      if (savedRating) {
-        setMoviesRating(JSON.parse(savedRating));
+  const [moviesRating, setMoviesRating] = useLocalStorage<MovieRating[]>({
+    key: "savedMoviesRating",
+    deserialize(value) {
+      try {
+        return value ? JSON.parse(value) : [];
+      } catch {
+        return [];
       }
-    } catch {
-      setMoviesRating([]);
-    }
-  }, [setMoviesRating]);
-
-  useEffect(() => {
-    const saveRating = () => {
-      localStorage.setItem("savedMoviesRating", JSON.stringify(moviesRating));
-    };
-    window.addEventListener("unload", saveRating);
-
-    return () => window.removeEventListener("unload", saveRating);
-  }, [moviesRating]);
+    },
+    defaultValue: [],
+  });
 
   const rateMovie = useCallback(
     (rating: MovieRating) => {
       const ratedMovie = moviesRating.find(m => m.id === rating.id);
       if (ratedMovie) {
+        const filteredRating = moviesRating.filter(m => m.id !== ratedMovie.id);
         if (rating.rating === 0) {
-          setMoviesRating([
-            ...moviesRating.filter(m => m.id !== ratedMovie.id),
-          ]);
+          setMoviesRating([...filteredRating]);
         } else {
-          setMoviesRating([
-            ...moviesRating.filter(m => m.id !== ratedMovie.id),
-            rating,
-          ]);
+          setMoviesRating([...filteredRating, rating]);
         }
       } else {
         setMoviesRating([...moviesRating, rating]);
