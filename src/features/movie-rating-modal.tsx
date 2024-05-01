@@ -10,11 +10,11 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 
-import { MovieRating, RatedMovie } from "@/shared/types";
+import { RatedMovie } from "@/shared/types";
 
 type MovieRatingModalProps = ModalBaseProps & {
   movie: RatedMovie | null;
-  rateMovie: (rating: MovieRating) => void;
+  rateMovie: (movie: RatedMovie) => void;
 };
 
 export function MovieRatingModal({
@@ -54,7 +54,7 @@ export function MovieRatingModal({
             <Button
               onClick={() => {
                 if (movie) {
-                  rateMovie({ id: movie.id, rating: value });
+                  rateMovie({ ...movie, rating: value });
                 }
                 onClose();
               }}

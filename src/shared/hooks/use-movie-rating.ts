@@ -1,13 +1,13 @@
 import { useLocalStorage } from "@mantine/hooks";
 import { useCallback } from "react";
 
-import { MovieRating } from "../types";
+import { RatedMovie } from "../types";
 
 export const useMovieRating = (): [
-  MovieRating[],
-  (movieRating: MovieRating) => void,
+  RatedMovie[],
+  (movieRating: RatedMovie) => void,
 ] => {
-  const [moviesRating, setMoviesRating] = useLocalStorage<MovieRating[]>({
+  const [moviesRating, setMoviesRating] = useLocalStorage<RatedMovie[]>({
     key: "savedMoviesRating",
     deserialize(value) {
       try {
@@ -20,7 +20,7 @@ export const useMovieRating = (): [
   });
 
   const rateMovie = useCallback(
-    (rating: MovieRating) => {
+    (rating: RatedMovie) => {
       const ratedMovie = moviesRating.find(m => m.id === rating.id);
       if (ratedMovie) {
         const filteredRating = moviesRating.filter(m => m.id !== ratedMovie.id);

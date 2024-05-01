@@ -19,7 +19,7 @@ import companyPlaceholder from "@/../public/production-company-placeholder.png";
 import { MovieRatingModal } from "@/features";
 import { RatingContext } from "@/shared/context";
 import { transformMoneyValue, transformRuntime } from "@/shared/lib";
-import { MovieDetails, MovieRating } from "@/shared/types";
+import { MovieDetails, RatedMovie } from "@/shared/types";
 import { MovieInfo, RatingButton } from "@/shared/ui";
 
 type PageContentProps = MovieDetails;
@@ -41,8 +41,8 @@ export function PageContent({
 }: PageContentProps) {
   const [opened, { close, open }] = useDisclosure(false);
   const [ratedMovies, rateMovie] = useContext(RatingContext) as [
-    MovieRating[],
-    (movieRating: MovieRating) => void,
+    RatedMovie[],
+    (movieRating: RatedMovie) => void,
   ];
   const userRating = useMemo(
     () => ratedMovies.find(m => m.id === id)?.rating,
@@ -180,7 +180,16 @@ export function PageContent({
         onClose={close}
         rateMovie={rateMovie}
         opened={opened}
-        movie={{ id, title, rating: userRating }}
+        movie={{
+          title,
+          id,
+          release_date,
+          genre_ids: genres.map(g => g.id),
+          vote_average,
+          vote_count,
+          poster_path,
+          rating: userRating,
+        }}
       />
     </>
   );

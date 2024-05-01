@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import NextImage from "next/image";
 import Link from "next/link";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useCallback } from "react";
 
 import posterPlaceholder from "@/../public/poster-placeholder.png";
 import { Genre, Movie, RatedMovie } from "@/shared/types";
@@ -22,23 +22,46 @@ type MovieCardProps = Movie & {
 };
 
 export function MovieCard({
-  id,
-  genre_ids,
-  poster_path,
-  title,
-  release_date,
-  vote_average,
-  vote_count,
   genres,
   isGenresLoading,
   userRating,
   openRateModal,
+  title,
+  release_date,
+  vote_average,
+  vote_count,
+  id,
+  genre_ids,
+  poster_path,
 }: MovieCardProps) {
   const theme = useMantineTheme();
-  const handleMovieRate: MouseEventHandler<HTMLButtonElement> = e => {
-    e.preventDefault();
-    openRateModal({ id, title, rating: userRating || 0 });
-  };
+  const handleMovieRate: MouseEventHandler<HTMLButtonElement> = useCallback(
+    e => {
+      e.preventDefault();
+      openRateModal({
+        id,
+        poster_path,
+        title,
+        release_date,
+        vote_average,
+        vote_count,
+        genre_ids,
+        rating: userRating || 0,
+      });
+    },
+    [
+      id,
+      poster_path,
+      title,
+      release_date,
+      vote_count,
+      vote_average,
+      genre_ids,
+      openRateModal,
+      userRating,
+    ],
+  );
+
   return (
     <Link style={{ textDecoration: "none" }} href={`/${id}`}>
       <Card p={24}>
