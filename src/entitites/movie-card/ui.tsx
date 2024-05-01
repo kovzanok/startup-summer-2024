@@ -1,20 +1,18 @@
 import {
-  ActionIcon,
   Card,
   Flex,
   Image,
-  Rating,
   Skeleton,
   Text,
   useMantineTheme,
 } from "@mantine/core";
 import NextImage from "next/image";
 import Link from "next/link";
-import React from "react";
+import { MouseEventHandler } from "react";
 
 import posterPlaceholder from "@/../public/poster-placeholder.png";
 import { Genre, Movie, RatedMovie } from "@/shared/types";
-import { MovieInfo } from "@/shared/ui";
+import { MovieInfo, RatingButton } from "@/shared/ui";
 
 type MovieCardProps = Movie & {
   genres: Genre[] | undefined;
@@ -37,7 +35,7 @@ export function MovieCard({
   openRateModal,
 }: MovieCardProps) {
   const theme = useMantineTheme();
-  const handleMovieRate: React.MouseEventHandler<HTMLButtonElement> = e => {
+  const handleMovieRate: MouseEventHandler<HTMLButtonElement> = e => {
     e.preventDefault();
     openRateModal({ id, title, rating: userRating || 0 });
   };
@@ -83,26 +81,7 @@ export function MovieCard({
               )}
             </Flex>
           </Flex>
-          <ActionIcon
-            w="fit-content"
-            onClick={handleMovieRate}
-            ml="auto"
-            variant="transparent"
-          >
-            <Rating
-              styles={{ label: { cursor: "pointer" } }}
-              size={28}
-              readOnly
-              value={userRating}
-              color={theme.colors.purple[2]}
-              count={1}
-            />
-            {Boolean(userRating) && (
-              <Text fw={600} c="black">
-                {userRating}
-              </Text>
-            )}
-          </ActionIcon>
+          <RatingButton userRating={userRating} onClick={handleMovieRate} />
         </Flex>
       </Card>
     </Link>
