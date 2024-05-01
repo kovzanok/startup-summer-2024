@@ -14,6 +14,7 @@ export function RatingButton({ userRating, onClick }: RatingButtonProps) {
       onClick={onClick}
       ml="auto"
       variant="transparent"
+      styles={{ root: { overflow: "visible" } }}
     >
       <Rating
         styles={{ label: { cursor: "pointer" } }}
