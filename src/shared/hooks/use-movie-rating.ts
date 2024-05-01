@@ -27,21 +27,26 @@ export const useMovieRating = (): [
     return () => window.removeEventListener("unload", saveRating);
   }, [moviesRating]);
 
-  const rateMovie = useCallback((rating: MovieRating) => {
-    const ratedMovie = moviesRating.find(m => m.id === rating.id);
-    if (ratedMovie) {
-      if (rating.rating === 0) {
-        setMoviesRating([...moviesRating.filter(m => m.id !== ratedMovie.id)]);
+  const rateMovie = useCallback(
+    (rating: MovieRating) => {
+      const ratedMovie = moviesRating.find(m => m.id === rating.id);
+      if (ratedMovie) {
+        if (rating.rating === 0) {
+          setMoviesRating([
+            ...moviesRating.filter(m => m.id !== ratedMovie.id),
+          ]);
+        } else {
+          setMoviesRating([
+            ...moviesRating.filter(m => m.id !== ratedMovie.id),
+            rating,
+          ]);
+        }
       } else {
-        setMoviesRating([
-          ...moviesRating.filter(m => m.id !== ratedMovie.id),
-          rating,
-        ]);
+        setMoviesRating([...moviesRating, rating]);
       }
-    } else {
-      setMoviesRating([...moviesRating, rating]);
-    }
-  }, []);
+    },
+    [moviesRating, setMoviesRating],
+  );
 
   return [moviesRating, rateMovie];
 };
