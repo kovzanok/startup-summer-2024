@@ -1,14 +1,14 @@
 "use client";
 
 import { Box, Grid } from "@mantine/core";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useSWR from "swr";
 
 import { CardSkeleton, MovieCard } from "@/entitites/movie-card";
 import { MovieRatingModal } from "@/features";
-import { useMovieRating } from "@/shared/hooks";
+import { RatingContext } from "@/shared/context";
 import { fetcher } from "@/shared/lib";
-import { GenreRes, Movie, RatedMovie } from "@/shared/types";
+import { GenreRes, Movie, MovieRating, RatedMovie } from "@/shared/types";
 
 import { ListFallback } from "./components/fallback";
 import Pagination from "./components/pagination";
@@ -25,7 +25,10 @@ export function MovieList({ isLoading, movieList, total }: MovieListProps) {
     fetcher,
   );
   const [selectedMovie, setSelectedMovie] = useState<RatedMovie | null>(null);
-  const [ratedMovies, rateMovie] = useMovieRating();
+  const [ratedMovies, rateMovie] = useContext(RatingContext) as [
+    MovieRating[],
+    (movieRating: MovieRating) => void,
+  ];
   return (
     <>
       <Grid gutter={8}>
