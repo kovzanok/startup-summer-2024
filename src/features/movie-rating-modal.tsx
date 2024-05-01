@@ -30,13 +30,8 @@ export function MovieRatingModal({
     setValue(movie?.rating || 0);
   }, [movie?.rating]);
 
-  const handleClose = () => {
-    onClose();
-    setValue(0);
-  };
-
   return (
-    <Modal.Root keepMounted={false} centered onClose={handleClose} {...props}>
+    <Modal.Root keepMounted={false} centered onClose={onClose} {...props}>
       <Modal.Overlay />
       <Modal.Content w="100%" maw="380px">
         <Modal.Header>
@@ -61,7 +56,7 @@ export function MovieRatingModal({
                 if (movie) {
                   rateMovie({ id: movie.id, rating: value });
                 }
-                handleClose();
+                onClose();
               }}
               w="fit-content"
               radius="8px"
