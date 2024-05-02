@@ -22,7 +22,11 @@ export function RatedMoviesList() {
     if (isPageLoading) {
       setIsPageLoading(false);
     }
-    if (!isLoading && !chunkedMovieList[page - 1]) {
+    if (
+      !isLoading &&
+      chunkedMovieList.length !== 0 &&
+      !chunkedMovieList[page - 1]
+    ) {
       updateSearchParams("page", page - 1);
       setIsPageLoading(true);
     }
