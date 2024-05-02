@@ -39,7 +39,8 @@ export function RatedMoviesList() {
     if (
       !isLoading &&
       chunkedMovieList.length !== 0 &&
-      !chunkedMovieList[page - 1]
+      !chunkedMovieList[page - 1] &&
+      chunkedMovieList[page - 2]
     ) {
       updateSearchParams("page", page - 1);
       setIsPageLoading(true);
