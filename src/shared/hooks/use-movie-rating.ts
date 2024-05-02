@@ -25,13 +25,20 @@ export const useMovieRating = (): [
 
   const rateMovie = useCallback(
     (rating: RatedMovie) => {
-      const ratedMovie = moviesRating.find(m => m.id === rating.id);
-      if (ratedMovie) {
-        const filteredRating = moviesRating.filter(m => m.id !== ratedMovie.id);
+      const ratedMovieIndex = moviesRating.findIndex(m => m.id === rating.id);
+      if (ratedMovieIndex !== -1) {
         if (rating.rating === 0) {
-          setMoviesRating([...filteredRating]);
+          setMoviesRating([
+            ...moviesRating.filter(
+              m => m.id !== moviesRating[ratedMovieIndex].id,
+            ),
+          ]);
         } else {
-          setMoviesRating([...filteredRating, rating]);
+          setMoviesRating([
+            ...moviesRating.slice(0, ratedMovieIndex),
+            rating,
+            ...moviesRating.slice(ratedMovieIndex + 1),
+          ]);
         }
       } else {
         setMoviesRating([...moviesRating, rating]);
