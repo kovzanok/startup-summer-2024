@@ -10,7 +10,7 @@ import { fetcher } from "@/shared/lib";
 import { GenreRes, Movie, RatedMovie } from "@/shared/types";
 
 import { ListFallback } from "./components/fallback";
-import Pagination from "./components/pagination";
+import { Pagination } from "./components/pagination";
 import { RatedFallback } from "./components/rated-fallback";
 
 type MovieListProps = {
@@ -60,7 +60,7 @@ export function MovieList({
       {!isLoading &&
         (!movieList || movieList?.length === 0) &&
         (isRatingList ? <RatedFallback /> : <ListFallback />)}
-      {total && movieList?.length !== 0 && (
+      {total !== undefined && Boolean(movieList?.length) && (
         <Box mt={24} w="fit-content" ml="auto">
           <Pagination total={total} />
         </Box>
