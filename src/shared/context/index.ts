@@ -1,1 +1,5 @@
-export { RatingContext, RatingProvider } from "./rating-context";
+export {
+  RatingContext,
+  type RatingContextValue,
+  RatingProvider,
+} from "./rating-context";

@@ -1,12 +1,14 @@
 import { useLocalStorage } from "@mantine/hooks";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { RatedMovie } from "../types";
 
 export const useMovieRating = (): [
   RatedMovie[],
   (movieRating: RatedMovie) => void,
+  { isLoading: boolean },
 ] => {
+  const [isLoading, setIsLoading] = useState(true);
   const [moviesRating, setMoviesRating] = useLocalStorage<RatedMovie[]>({
     key: "savedMoviesRating",
     deserialize(value) {
@@ -14,6 +16,8 @@ export const useMovieRating = (): [
         return value ? JSON.parse(value) : [];
       } catch {
         return [];
+      } finally {
+        setIsLoading(false);
       }
     },
     defaultValue: [],
@@ -36,5 +40,5 @@ export const useMovieRating = (): [
     [moviesRating, setMoviesRating],
   );
 
-  return [moviesRating, rateMovie];
+  return [moviesRating, rateMovie, { isLoading }];
 };

@@ -3,15 +3,20 @@ import { createContext, useMemo } from "react";
 import { useMovieRating } from "../hooks";
 import { RatedMovie } from "../types";
 
-export const RatingContext = createContext<
-  [RatedMovie[], (movieRating: RatedMovie) => void] | null
->(null);
+export const RatingContext = createContext<RatingContextValue | null>(null);
+
+export type RatingContextValue = [
+  RatedMovie[],
+  (movieRating: RatedMovie) => void,
+  { isLoading: boolean },
+];
 
 export function RatingProvider({ children }: { children: React.ReactNode }) {
-  const [ratedMovies, rateMovie] = useMovieRating();
-  const contextValues = useMemo<
-    [RatedMovie[], (movieRating: RatedMovie) => void]
-  >(() => [ratedMovies, rateMovie], [rateMovie, ratedMovies]);
+  const [ratedMovies, rateMovie, { isLoading }] = useMovieRating();
+  const contextValues = useMemo<RatingContextValue>(
+    () => [ratedMovies, rateMovie, { isLoading }],
+    [rateMovie, ratedMovies, isLoading],
+  );
   return (
     <RatingContext.Provider value={contextValues}>
       {children}
