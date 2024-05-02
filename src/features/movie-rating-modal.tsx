@@ -33,7 +33,7 @@ export function MovieRatingModal({
   return (
     <Modal.Root keepMounted={false} centered onClose={onClose} {...props}>
       <Modal.Overlay />
-      <Modal.Content w="100%" maw="380px">
+      <Modal.Content w="100%" maw={{ xs: "380px", base: "320px" }}>
         <Modal.Header>
           <Text fw={700}>Your rating</Text> <Modal.CloseButton />
         </Modal.Header>
