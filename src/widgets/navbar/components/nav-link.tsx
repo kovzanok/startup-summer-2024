@@ -3,13 +3,19 @@
 import { Box, useMantineTheme } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PropsWithChildren, useMemo } from "react";
+import { MouseEventHandler, PropsWithChildren, useMemo } from "react";
 
 import { LinkData } from "../types";
 
-type NavLinkProps = Pick<LinkData, "href">;
+type NavLinkProps = Pick<LinkData, "href"> & {
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+};
 
-export function NavLink({ href, children }: PropsWithChildren<NavLinkProps>) {
+export function NavLink({
+  href,
+  children,
+  onClick,
+}: PropsWithChildren<NavLinkProps>) {
   const pathname = usePathname();
   const theme = useMantineTheme();
   const isActive = useMemo(
@@ -18,6 +24,7 @@ export function NavLink({ href, children }: PropsWithChildren<NavLinkProps>) {
   );
   return (
     <Box
+      onClick={onClick}
       p={10}
       td="none"
       style={{ borderRadius: "8px" }}

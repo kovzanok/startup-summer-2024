@@ -20,12 +20,12 @@ export function NavBar({ close }: NavBarProps) {
       p={24}
     >
       <Group justify="space-between">
-        <Logo />
+        <Logo onClick={close} />
         <Burger hiddenFrom="sm" opened onClick={close} />
       </Group>
       <Flex direction="column" rowGap={16}>
         {links.map(({ href, title }) => (
-          <NavLink key={href} href={href}>
+          <NavLink onClick={close} key={href} href={href}>
             {title}
           </NavLink>
         ))}
