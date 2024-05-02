@@ -41,7 +41,7 @@ export function MovieList({
       <Grid gutter={8}>
         {isLoading &&
           [0, 1, 2, 3].map(i => (
-            <Grid.Col key={i} span={{ xs: 12, md: 6 }}>
+            <Grid.Col key={i} span={{ xs: 12, lg: 6 }}>
               <CardSkeleton />
             </Grid.Col>
           ))}
