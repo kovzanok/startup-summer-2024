@@ -17,9 +17,9 @@ import { Fragment, useContext, useMemo } from "react";
 import posterPlaceholder from "@/../public/poster-placeholder.png";
 import companyPlaceholder from "@/../public/production-company-placeholder.png";
 import { MovieRatingModal } from "@/features";
-import { RatingContext } from "@/shared/context";
+import { RatingContext, RatingContextValue } from "@/shared/context";
 import { transformMoneyValue, transformRuntime } from "@/shared/lib";
-import { MovieDetails, RatedMovie } from "@/shared/types";
+import { MovieDetails } from "@/shared/types";
 import { MovieInfo, RatingButton } from "@/shared/ui";
 
 type PageContentProps = MovieDetails;
@@ -40,10 +40,9 @@ export function PageContent({
   production_companies,
 }: PageContentProps) {
   const [opened, { close, open }] = useDisclosure(false);
-  const [ratedMovies, rateMovie] = useContext(RatingContext) as [
-    RatedMovie[],
-    (movieRating: RatedMovie) => void,
-  ];
+  const [ratedMovies, rateMovie] = useContext(
+    RatingContext,
+  ) as RatingContextValue;
   const userRating = useMemo(
     () => ratedMovies.find(m => m.id === id)?.rating,
     [id, ratedMovies],
