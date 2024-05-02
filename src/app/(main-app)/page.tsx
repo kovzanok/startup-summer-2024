@@ -9,7 +9,7 @@ import { SortSelect } from "./_component/sort-select";
 
 export default function Home() {
   return (
-    <Box px={90} pt={41} pb={82}>
+    <Box px={{ base: 90, lg: 40 }} pt={41} pb={82}>
       <Title order={2} fz={32} fw={700}>
         Movies
       </Title>
