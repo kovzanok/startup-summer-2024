@@ -8,13 +8,13 @@ import {
 } from "@mantine/core";
 import { usePagination } from "@mantine/hooks";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import { useMemo } from "react";
 
 import { useUpdateSearchParams } from "@/shared/hooks";
 
 type PaginationProps = { total: number };
 
-export default function Pagination({ total }: PaginationProps) {
+export function Pagination({ total }: PaginationProps) {
   const updateSearchParams = useUpdateSearchParams();
   const theme = useMantineTheme();
   const searchParams = useSearchParams();
@@ -26,6 +26,21 @@ export default function Pagination({ total }: PaginationProps) {
       updateSearchParams("page", page);
     },
   });
+
+  const pageValueArr = useMemo(
+    () =>
+      new Array(Math.min(total, 3)).fill(0).map((_, idx) => {
+        if (active === 1) {
+          return active + idx;
+        }
+        if (active === total) {
+          return Math.abs(active - Math.min(total, 3) + idx + 1);
+        }
+        return active + idx - 1;
+      }),
+    [total, active],
+  );
+
   return (
     <PaginationRoot
       value={active}
@@ -35,53 +50,15 @@ export default function Pagination({ total }: PaginationProps) {
     >
       <Flex columnGap={8}>
         <PaginationPrevious disabled={active === 1} onClick={previous} />
-        {total < 3 ? (
-          <>
-            <PaginationControl active>{active}</PaginationControl>
-            {total === 2 && (
-              <PaginationControl onClick={() => setPage(active + 1)}>
-                {active + 1}
-              </PaginationControl>
-            )}
-          </>
-        ) : (
-          <>
-            {active === 1 && (
-              <>
-                <PaginationControl active>{active}</PaginationControl>
-                <PaginationControl onClick={() => setPage(active + 1)}>
-                  {active + 1}
-                </PaginationControl>
-                <PaginationControl onClick={() => setPage(active + 2)}>
-                  {active + 2}
-                </PaginationControl>
-              </>
-            )}
-            {active === total && (
-              <>
-                <PaginationControl onClick={() => setPage(active - 2)}>
-                  {active - 2}
-                </PaginationControl>
-                <PaginationControl onClick={() => setPage(active - 1)}>
-                  {active - 1}
-                </PaginationControl>
-                <PaginationControl active>{active}</PaginationControl>
-              </>
-            )}
-            {active !== 1 && active !== total && (
-              <>
-                <PaginationControl onClick={() => setPage(active - 1)}>
-                  {active - 1}
-                </PaginationControl>
-                <PaginationControl active>{active}</PaginationControl>
-                <PaginationControl onClick={() => setPage(active + 1)}>
-                  {active + 1}
-                </PaginationControl>
-              </>
-            )}
-          </>
-        )}
-
+        {pageValueArr.map(v => (
+          <PaginationControl
+            key={v}
+            onClick={() => setPage(v)}
+            active={v === active}
+          >
+            {v}
+          </PaginationControl>
+        ))}
         <PaginationNext disabled={active === total} onClick={next} />
       </Flex>
     </PaginationRoot>

@@ -10,14 +10,16 @@ import { fetcher } from "@/shared/lib";
 import { GenreRes, Movie, RatedMovie } from "@/shared/types";
 
 import { ListFallback } from "./components/fallback";
-import Pagination from "./components/pagination";
+import { Pagination } from "./components/pagination";
+import { RatedFallback } from "./components/rated-fallback";
 
 type MovieListProps = {
-  movieList: Movie[] | undefined;
+  movieList: (Movie | RatedMovie)[] | undefined;
   ratedMovies: RatedMovie[];
   rateMovie: (movieRating: RatedMovie) => void;
   total: number | undefined;
   isLoading?: boolean;
+  isRatingList?: boolean;
 };
 
 export function MovieList({
@@ -26,6 +28,7 @@ export function MovieList({
   total,
   rateMovie,
   ratedMovies,
+  isRatingList,
 }: MovieListProps) {
   const { data: genres, isLoading: isGenresLoading } = useSWR<GenreRes>(
     "/genre/movie/list",
@@ -54,10 +57,10 @@ export function MovieList({
           </Grid.Col>
         ))}
       </Grid>
-      {((!movieList && !isLoading) || movieList?.length === 0) && (
-        <ListFallback />
-      )}
-      {total && movieList?.length !== 0 && (
+      {!isLoading &&
+        (!movieList || movieList?.length === 0) &&
+        (isRatingList ? <RatedFallback /> : <ListFallback />)}
+      {total !== undefined && Boolean(movieList?.length) && (
         <Box mt={24} w="fit-content" ml="auto">
           <Pagination total={total} />
         </Box>
