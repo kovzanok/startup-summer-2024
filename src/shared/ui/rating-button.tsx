@@ -1,5 +1,7 @@
-import { ActionIcon, Rating, Text, useMantineTheme } from "@mantine/core";
+import { ActionIcon, Text, useMantineTheme } from "@mantine/core";
 import { MouseEventHandler } from "react";
+
+import StarIcon from "@/../public/star.svg";
 
 type RatingButtonProps = {
   onClick: MouseEventHandler<HTMLButtonElement>;
@@ -16,13 +18,9 @@ export function RatingButton({ userRating, onClick }: RatingButtonProps) {
       variant="transparent"
       styles={{ root: { overflow: "visible" } }}
     >
-      <Rating
-        styles={{ label: { cursor: "pointer" } }}
+      <StarIcon
         size={28}
-        readOnly
-        value={userRating}
-        color={theme.colors.purple[2]}
-        count={1}
+        color={userRating ? theme.colors.purple[2] : theme.colors.slate[2]}
       />
       {Boolean(userRating) && (
         <Text fw={600} c="black">
