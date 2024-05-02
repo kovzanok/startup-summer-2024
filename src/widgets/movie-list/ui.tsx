@@ -11,6 +11,7 @@ import { GenreRes, Movie, RatedMovie } from "@/shared/types";
 
 import { ListFallback } from "./components/fallback";
 import Pagination from "./components/pagination";
+import { RatedFallback } from "./components/rated-fallback";
 
 type MovieListProps = {
   movieList: (Movie | RatedMovie)[] | undefined;
@@ -18,6 +19,7 @@ type MovieListProps = {
   rateMovie: (movieRating: RatedMovie) => void;
   total: number | undefined;
   isLoading?: boolean;
+  isRatingList?: boolean;
 };
 
 export function MovieList({
@@ -26,6 +28,7 @@ export function MovieList({
   total,
   rateMovie,
   ratedMovies,
+  isRatingList,
 }: MovieListProps) {
   const { data: genres, isLoading: isGenresLoading } = useSWR<GenreRes>(
     "/genre/movie/list",
@@ -54,9 +57,9 @@ export function MovieList({
           </Grid.Col>
         ))}
       </Grid>
-      {((!movieList && !isLoading) || movieList?.length === 0) && (
-        <ListFallback />
-      )}
+      {!isLoading &&
+        (!movieList || movieList?.length === 0) &&
+        (isRatingList ? <RatedFallback /> : <ListFallback />)}
       {total && movieList?.length !== 0 && (
         <Box mt={24} w="fit-content" ml="auto">
           <Pagination total={total} />
