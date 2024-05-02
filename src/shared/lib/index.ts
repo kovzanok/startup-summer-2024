@@ -3,4 +3,4 @@ export {
   createQueryString,
   deleteValueFromSearchParams,
 } from "./search-params";
-export { transformMoneyValue, transformRuntime } from "./tranform-data";
+export { chunk, transformMoneyValue, transformRuntime } from "./tranform-data";
