@@ -27,7 +27,7 @@ export function SortSelect() {
     updateSearchParams("sort_by", value);
   };
   return (
-    <Box mb={24} ml="auto" maw={284}>
+    <Box mb={{ md: 24, base: 10 }} ml="auto" maw={{ xs: 284, base: "100%" }}>
       <CustomSelect
         value={
           options.find(o => o.value === searchParams.get("sort_by"))

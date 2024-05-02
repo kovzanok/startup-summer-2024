@@ -41,12 +41,12 @@ export function MovieList({
       <Grid gutter={8}>
         {isLoading &&
           [0, 1, 2, 3].map(i => (
-            <Grid.Col key={i} span={6}>
+            <Grid.Col key={i} span={{ xs: 12, md: 6 }}>
               <CardSkeleton />
             </Grid.Col>
           ))}
         {movieList?.map(movie => (
-          <Grid.Col key={movie.id} span={6}>
+          <Grid.Col key={movie.id} span={{ xs: 12, lg: 6 }}>
             <MovieCard
               openRateModal={setSelectedMovie}
               userRating={ratedMovies.find(r => movie.id === r.id)?.rating}

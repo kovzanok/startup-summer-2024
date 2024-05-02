@@ -64,7 +64,7 @@ export function MovieCard({
 
   return (
     <Link style={{ textDecoration: "none" }} href={`/${id}`}>
-      <Card p={24}>
+      <Card p={{ base: 10, md: 24 }}>
         <Flex columnGap={16}>
           <Image
             style={{ border: `1px solid ${theme.colors.slate[3]}` }}

@@ -38,7 +38,7 @@ export function RatingRange() {
     [getInputProps, updateSearchParams, isValid, validateField],
   );
   return (
-    <Flex maw={284} w="100%" direction="column" rowGap={8}>
+    <Flex direction="column" rowGap={8}>
       <Text fw={700}>Ratings</Text>
       <Flex columnGap={8}>
         <CustomNumberInput
