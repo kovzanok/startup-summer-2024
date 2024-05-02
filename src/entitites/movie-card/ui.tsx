@@ -14,7 +14,7 @@ import posterPlaceholder from "@/../public/poster-placeholder.png";
 import { Genre, Movie, RatedMovie } from "@/shared/types";
 import { MovieInfo, RatingButton } from "@/shared/ui";
 
-type MovieCardProps = Movie & {
+type MovieCardProps = (Movie | RatedMovie) & {
   genres: Genre[] | undefined;
   isGenresLoading: boolean;
   userRating?: number;

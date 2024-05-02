@@ -13,7 +13,7 @@ import { ListFallback } from "./components/fallback";
 import Pagination from "./components/pagination";
 
 type MovieListProps = {
-  movieList: Movie[] | undefined;
+  movieList: (Movie | RatedMovie)[] | undefined;
   ratedMovies: RatedMovie[];
   rateMovie: (movieRating: RatedMovie) => void;
   total: number | undefined;
