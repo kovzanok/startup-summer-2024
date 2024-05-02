@@ -12,7 +12,10 @@ type NavLinkProps = Pick<LinkData, "href">;
 export function NavLink({ href, children }: PropsWithChildren<NavLinkProps>) {
   const pathname = usePathname();
   const theme = useMantineTheme();
-  const isActive = useMemo(() => pathname === href, [pathname, href]);
+  const isActive = useMemo(
+    () => pathname === href || (href === "/" && pathname !== "/rated"),
+    [pathname, href],
+  );
   return (
     <Box
       p={10}
