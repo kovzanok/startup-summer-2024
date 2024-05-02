@@ -1,34 +1,38 @@
 "use client";
 
 import { Box, Grid } from "@mantine/core";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 
 import { CardSkeleton, MovieCard } from "@/entitites/movie-card";
 import { MovieRatingModal } from "@/features";
-import { RatingContext } from "@/shared/context";
 import { fetcher } from "@/shared/lib";
-import { GenreRes, Movie, MovieRating, RatedMovie } from "@/shared/types";
+import { GenreRes, Movie, RatedMovie } from "@/shared/types";
 
 import { ListFallback } from "./components/fallback";
 import Pagination from "./components/pagination";
 
 type MovieListProps = {
   movieList: Movie[] | undefined;
+  ratedMovies: RatedMovie[];
+  rateMovie: (movieRating: RatedMovie) => void;
   total: number | undefined;
-  isLoading: boolean;
+  isLoading?: boolean;
 };
 
-export function MovieList({ isLoading, movieList, total }: MovieListProps) {
+export function MovieList({
+  isLoading,
+  movieList,
+  total,
+  rateMovie,
+  ratedMovies,
+}: MovieListProps) {
   const { data: genres, isLoading: isGenresLoading } = useSWR<GenreRes>(
     "/genre/movie/list",
     fetcher,
   );
   const [selectedMovie, setSelectedMovie] = useState<RatedMovie | null>(null);
-  const [ratedMovies, rateMovie] = useContext(RatingContext) as [
-    MovieRating[],
-    (movieRating: MovieRating) => void,
-  ];
+
   return (
     <>
       <Grid gutter={8}>
