@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Grid } from "@mantine/core";
+import { Flex, Grid } from "@mantine/core";
 import { useState } from "react";
 import useSWR from "swr";
 
@@ -61,9 +61,9 @@ export function MovieList({
         (!movieList || movieList?.length === 0) &&
         (isRatingList ? <RatedFallback /> : <ListFallback />)}
       {total !== undefined && Boolean(movieList?.length) && (
-        <Box mt={24} w="fit-content" ml="auto">
+        <Flex justify={isRatingList ? "center" : "flex-end"} mt={24}>
           <Pagination total={total} />
-        </Box>
+        </Flex>
       )}
       <MovieRatingModal
         rateMovie={rateMovie}
