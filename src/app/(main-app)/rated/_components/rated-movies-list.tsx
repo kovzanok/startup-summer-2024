@@ -17,7 +17,21 @@ export function RatedMoviesList() {
   const [ratedMovies, rateMovie, { isLoading }] = useContext(
     RatingContext,
   ) as RatingContextValue;
-  const chunkedMovieList = useMemo(() => chunk(ratedMovies, 4), [ratedMovies]);
+  const search = useMemo(
+    () => searchParams.get("search") || "",
+    [searchParams],
+  );
+  const filteredMovies = useMemo(
+    () =>
+      ratedMovies.filter(({ title }) =>
+        title.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [ratedMovies, search],
+  );
+  const chunkedMovieList = useMemo(
+    () => chunk(filteredMovies, 4),
+    [filteredMovies],
+  );
   useEffect(() => {
     if (isPageLoading) {
       setIsPageLoading(false);
@@ -36,7 +50,7 @@ export function RatedMoviesList() {
     <MovieList
       rateMovie={rateMovie}
       ratedMovies={ratedMovies}
-      total={Math.ceil(ratedMovies.length / 4)}
+      total={chunkedMovieList.length}
       isLoading={isLoading || isPageLoading}
       movieList={chunkedMovieList[page - 1]}
       isRatingList
