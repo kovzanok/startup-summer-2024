@@ -1,4 +1,4 @@
-import { Button, Flex, useMantineTheme } from "@mantine/core";
+import { Button, Flex, Grid, useMantineTheme } from "@mantine/core";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
@@ -91,27 +91,29 @@ export function FilterForm() {
           ]);
         }}
       >
-        <Flex align="flex-start" justify="space-between" columnGap={16} my={24}>
-          <GenreSelect width="100%" maw="283px" {...register("with_genres")} />
-          <YearSelect
-            width="100%"
-            maw="283px"
-            {...register("primary_release_year")}
-          />
-          <RatingRange />
-          <Button
-            p={0}
-            pos="relative"
-            top="50%"
-            style={{ transform: "translateY(100%)" }}
-            c={theme.colors.slate[1]}
-            type="reset"
-            w="fit-content"
-            variant="transparent"
-          >
-            Reset filters
-          </Button>
-        </Flex>
+        <Grid gutter={16} my={{ base: 5, xs: 15, md: 24 }}>
+          <Grid.Col span={{ lg: 3, xs: 6, base: 12 }}>
+            <GenreSelect {...register("with_genres")} />
+          </Grid.Col>
+          <Grid.Col span={{ lg: 3, xs: 6, base: 12 }}>
+            <YearSelect {...register("primary_release_year")} />
+          </Grid.Col>
+          <Grid.Col span={{ lg: "auto", xs: 6, base: 12 }}>
+            <RatingRange />
+          </Grid.Col>
+          <Grid.Col span={{ lg: "content", xs: 6, base: 12 }}>
+            <Flex h="100%" align="flex-end" justify="center">
+              <Button
+                c={theme.colors.slate[1]}
+                type="reset"
+                w="fit-content"
+                variant="transparent"
+              >
+                Reset filters
+              </Button>
+            </Flex>
+          </Grid.Col>
+        </Grid>
       </form>
     </FormProvider>
   );

@@ -1,13 +1,17 @@
 "use client";
 
-import { AppShell, Flex, useMantineTheme } from "@mantine/core";
+import { AppShell, Burger, Flex, Group, useMantineTheme } from "@mantine/core";
 
 import { Logo } from "@/shared/ui";
 
 import { NavLink } from "./components/nav-link";
 import { links } from "./const";
 
-export function NavBar() {
+type NavBarProps = {
+  close: () => void;
+};
+
+export function NavBar({ close }: NavBarProps) {
   const theme = useMantineTheme();
   return (
     <AppShell.Navbar
@@ -15,10 +19,13 @@ export function NavBar() {
       bg={theme.colors.purple[0]}
       p={24}
     >
-      <Logo />
+      <Group justify="space-between">
+        <Logo onClick={close} />
+        <Burger hiddenFrom="sm" opened onClick={close} />
+      </Group>
       <Flex direction="column" rowGap={16}>
         {links.map(({ href, title }) => (
-          <NavLink key={href} href={href}>
+          <NavLink onClick={close} key={href} href={href}>
             {title}
           </NavLink>
         ))}
