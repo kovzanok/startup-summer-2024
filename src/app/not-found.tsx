@@ -8,10 +8,9 @@ import {
   Text,
   useMantineTheme,
 } from "@mantine/core";
-import Image from "next/image";
 import Link from "next/link";
 
-import notFoundTextSrc from "@/../public/not-found.svg";
+import NotFoundTextSvg from "@/../public/not-found.svg";
 import { Logo } from "@/shared/ui";
 
 import { NotFoundSpectre } from "./_components/not-found-spectre";
@@ -35,7 +34,7 @@ export default function NotFoundPage() {
         >
           <Flex direction="column" rowGap={28} align="center">
             <NotFoundSpectre />
-            <Image src={notFoundTextSrc} alt="Page not found 404" />
+            <NotFoundTextSvg />
             <NotFoundSpectre />
           </Flex>
           <Flex direction="column" rowGap={16} align="center">
