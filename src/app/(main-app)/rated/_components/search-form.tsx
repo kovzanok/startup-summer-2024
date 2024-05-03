@@ -18,7 +18,7 @@ export function SearchForm() {
     updateSearchParms("search", search);
   };
   return (
-    <Box maw="50%" w="100%">
+    <Box maw={{ base: "100%", xs: "50%" }} w="100%">
       <form onSubmit={onSubmit(handleSubmit)}>
         <Input
           {...getInputProps("search")}
