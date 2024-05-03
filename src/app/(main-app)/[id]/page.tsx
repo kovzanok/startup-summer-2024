@@ -26,7 +26,7 @@ export default function MoviePage({
   const content = data ? <PageContent {...data} /> : <PageSkeleton />;
 
   return (
-    <Box py={40} px={180}>
+    <Box py={40} px={{ lg: 180, md: 20, base: 10 }}>
       {content}
     </Box>
   );
