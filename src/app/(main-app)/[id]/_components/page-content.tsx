@@ -11,7 +11,7 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useDisclosure, useDocumentTitle, useMediaQuery } from "@mantine/hooks";
 import NextImage from "next/image";
 import Link from "next/link";
 import { Fragment, useContext, useMemo } from "react";
@@ -43,6 +43,7 @@ export function PageContent({
   overview,
   production_companies,
 }: PageContentProps) {
+  useDocumentTitle(title);
   const theme = useMantineTheme();
   const isMedia = useMediaQuery("(min-width: 620px)");
   const [opened, { close, open }] = useDisclosure(false);

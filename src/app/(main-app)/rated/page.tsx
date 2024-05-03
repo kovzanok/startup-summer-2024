@@ -1,12 +1,14 @@
 "use client";
 
 import { Box, Flex, Title } from "@mantine/core";
+import { useDocumentTitle } from "@mantine/hooks";
 import { Suspense } from "react";
 
 import { RatedMoviesList } from "./_components/rated-movies-list";
 import { SearchForm } from "./_components/search-form";
 
 export default function RatedMoviesPage() {
+  useDocumentTitle("Rated movies");
   return (
     <Box px={{ lg: 90, xs: 20, base: 10 }} py={{ lg: 40, xs: 20, base: 10 }}>
       <Suspense>

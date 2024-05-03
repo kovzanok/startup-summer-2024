@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Title } from "@mantine/core";
+import { useDocumentTitle } from "@mantine/hooks";
 import { Suspense } from "react";
 
 import { DiscoverMovieList } from "./_component/discover-movie-list";
@@ -8,6 +9,7 @@ import { FilterForm } from "./_component/filter-form";
 import { SortSelect } from "./_component/sort-select";
 
 export default function Home() {
+  useDocumentTitle("Movies");
   return (
     <Box
       px={{ lg: 40, xs: 20, base: 10 }}

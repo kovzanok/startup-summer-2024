@@ -1,6 +1,8 @@
 import { Breadcrumbs, Card, Flex, Skeleton } from "@mantine/core";
+import { useDocumentTitle } from "@mantine/hooks";
 
 export function PageSkeleton() {
+  useDocumentTitle("Loading...");
   return (
     <Card p={24}>
       <Flex direction="column" rowGap={20}>
