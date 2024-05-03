@@ -17,7 +17,7 @@ export function NavBar({ close }: NavBarProps) {
     <AppShell.Navbar
       style={{ rowGap: "80px" }}
       bg={theme.colors.purple[0]}
-      p={24}
+      p={{ base: 10, md: 24 }}
     >
       <Group justify="space-between">
         <Logo onClick={close} />

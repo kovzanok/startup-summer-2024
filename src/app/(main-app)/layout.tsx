@@ -14,15 +14,20 @@ export default function MainLayout({
 }>) {
   const theme = useMantineTheme();
   const isTablet = useMediaQuery("(min-width: 768px)");
+  const isLaptop = useMediaQuery("(max-width: 1024px)");
   const [opened, { toggle, close }] = useDisclosure();
   return (
     <AppShell
       layout="alt"
       withBorder={false}
-      header={{ height: 52, collapsed: isTablet }}
-      navbar={{ width: 280, breakpoint: "sm", collapsed: { mobile: !opened } }}
+      header={{ height: { base: 52, lg: 0 }, collapsed: isTablet }}
+      navbar={{
+        width: isLaptop ? 220 : 280,
+        breakpoint: "sm",
+        collapsed: { mobile: !opened },
+      }}
     >
-      <AppShell.Header>
+      <AppShell.Header hiddenFrom="md">
         <Group p={12} justify="space-between">
           <Logo />
           <Burger opened={opened} onClick={toggle} size="sm" />

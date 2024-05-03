@@ -20,7 +20,7 @@ export function DiscoverMovieList() {
     <MovieList
       ratedMovies={ratedMovies}
       rateMovie={rateMovie}
-      total={500}
+      total={Math.min(500, movieRes?.total_pages || 0)}
       movieList={movieRes?.results}
       isLoading={isLoading}
     />

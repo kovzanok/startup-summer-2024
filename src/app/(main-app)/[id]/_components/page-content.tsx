@@ -1,26 +1,30 @@
 import {
+  Box,
   Breadcrumbs,
   Card,
   Divider,
   Flex,
   Grid,
   Image,
+  Stack,
   Text,
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import NextImage from "next/image";
 import Link from "next/link";
 import { Fragment, useContext, useMemo } from "react";
 
 import posterPlaceholder from "@/../public/poster-placeholder.png";
-import companyPlaceholder from "@/../public/production-company-placeholder.png";
 import { MovieRatingModal } from "@/features";
 import { RatingContext, RatingContextValue } from "@/shared/context";
 import { transformMoneyValue, transformRuntime } from "@/shared/lib";
 import { MovieDetails } from "@/shared/types";
 import { MovieInfo, RatingButton } from "@/shared/ui";
+
+import styles from "../styles.module.css";
+import { CompaniesList } from "./companies-list";
 
 type PageContentProps = MovieDetails;
 
@@ -39,6 +43,8 @@ export function PageContent({
   overview,
   production_companies,
 }: PageContentProps) {
+  const theme = useMantineTheme();
+  const isMedia = useMediaQuery("(min-width: 620px)");
   const [opened, { close, open }] = useDisclosure(false);
   const [ratedMovies, rateMovie] = useContext(
     RatingContext,
@@ -47,7 +53,6 @@ export function PageContent({
     () => ratedMovies.find(m => m.id === id)?.rating,
     [id, ratedMovies],
   );
-  const theme = useMantineTheme();
   const movieStats = useMemo(
     () => [
       { name: "Duration", value: transformRuntime(runtime) },
@@ -75,7 +80,7 @@ export function PageContent({
   return (
     <>
       <Flex direction="column" rowGap={20}>
-        <Card p={24}>
+        <Card p={{ base: 10, xs: 24 }}>
           <Flex direction="column" rowGap={20}>
             <Breadcrumbs
               styles={{
@@ -84,95 +89,97 @@ export function PageContent({
                   color: theme.colors.purple[2],
                 },
               }}
+              fz={{ base: 12, xs: 14 }}
               td="none"
             >
               <Link href="/">Movies</Link>
               <Link href={`/${id}`}>{title}</Link>
             </Breadcrumbs>
-            <Flex columnGap={16}>
-              <Image
-                style={{ border: `1px solid ${theme.colors.slate[3]}` }}
-                component={NextImage}
-                w={250}
-                width={250}
-                h={352}
-                height={352}
-                src={`${process.env.NEXT_PUBLIC_IMAGE_SRC}/w500${poster_path}`}
-                fallbackSrc={posterPlaceholder.src}
-                alt={title}
-                priority
-              />
-
-              <Flex direction="column" justify="space-between">
-                <MovieInfo
-                  title={title}
-                  release_date={release_date}
-                  vote_average={vote_average}
-                  vote_count={vote_count}
+            <Stack>
+              <Flex columnGap={16}>
+                <Image
+                  className={styles.poster}
+                  style={{ border: `1px solid ${theme.colors.slate[3]}` }}
+                  component={NextImage}
+                  w={250}
+                  width={250}
+                  h={352}
+                  height={352}
+                  src={`${process.env.NEXT_PUBLIC_IMAGE_SRC}/w500${poster_path}`}
+                  fallbackSrc={posterPlaceholder.src}
+                  alt={title}
+                  priority
                 />
-                <Grid>
-                  {movieStats.map(({ name, value }) => (
-                    <Fragment key={name}>
-                      <Grid.Col span={4} key={name}>
-                        <Text c={theme.colors.slate[1]}>{name}</Text>
-                      </Grid.Col>
-                      <Grid.Col span={8}>
-                        <Text>{value}</Text>
-                      </Grid.Col>
-                    </Fragment>
-                  ))}
-                </Grid>
+
+                <Flex direction="column" justify="space-between">
+                  <MovieInfo
+                    title={title}
+                    release_date={release_date}
+                    vote_average={vote_average}
+                    vote_count={vote_count}
+                  />
+                  {isMedia && (
+                    <Grid>
+                      {movieStats.map(({ name, value }) => (
+                        <Fragment key={name}>
+                          <Grid.Col span={4} key={name}>
+                            <Text c={theme.colors.slate[1]}>{name}</Text>
+                          </Grid.Col>
+                          <Grid.Col span={8}>
+                            <Text>{value}</Text>
+                          </Grid.Col>
+                        </Fragment>
+                      ))}
+                    </Grid>
+                  )}
+                </Flex>
+                <RatingButton userRating={userRating} onClick={open} />
               </Flex>
-              <RatingButton userRating={userRating} onClick={open} />
-            </Flex>
+              {!isMedia && (
+                <Flex wrap="wrap" justify="space-evenly" gap={10}>
+                  {movieStats.map(({ name, value }) => (
+                    <Box key={name}>
+                      <Text ta="center" c={theme.colors.slate[1]}>
+                        {name}
+                      </Text>
+                      <Text ta="center">{value}</Text>
+                    </Box>
+                  ))}
+                </Flex>
+              )}
+            </Stack>
           </Flex>
         </Card>
-        <Card p={24}>
-          <Title order={4} fz={20} mb={16}>
-            Trailer
-          </Title>
+        <Card p={{ base: 10, xs: 24 }}>
           {trailer && (
-            <iframe
-              style={{ borderRadius: "9px" }}
-              width="560"
-              height="281"
-              src={`https://www.youtube.com/embed/${trailer.key}?si=zBvWGCw64AWmBo59`}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
+            <>
+              <Title order={4} fz={20} mb={16}>
+                Trailer
+              </Title>
+              <iframe
+                className={styles.trailer}
+                style={{ borderRadius: "9px" }}
+                width="560"
+                height="281"
+                src={`https://www.youtube.com/embed/${trailer.key}?si=zBvWGCw64AWmBo59`}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+              <Divider my={20} />
+            </>
           )}
-          <Divider my={20} />
           <Title order={4} fz={20} mb={16}>
             Description
           </Title>
           <Text>{overview}</Text>
-          <Divider my={20} />
-          <Title order={4} fz={20} mb={16}>
-            Production
-          </Title>
-          <Flex direction="column" rowGap={12}>
-            {production_companies.map(({ id: companyId, name, logo_path }) => (
-              <Flex key={companyId} columnGap={8} align="center">
-                <Image
-                  style={{ border: `1px solid ${theme.colors.slate[3]}` }}
-                  component={NextImage}
-                  w={40}
-                  miw={40}
-                  width={40}
-                  h={40}
-                  height={40}
-                  radius="100%"
-                  fit="scale-down"
-                  src={`${process.env.NEXT_PUBLIC_IMAGE_SRC}/w500${logo_path}`}
-                  fallbackSrc={companyPlaceholder.src}
-                  alt={title}
-                />
-                <Text fw={700}>{name}</Text>
-              </Flex>
-            ))}
-          </Flex>
+          {production_companies.length !== 0 && (
+            <>
+              <Divider my={20} />
+              <CompaniesList companies={production_companies} />
+            </>
+          )}
         </Card>
       </Flex>
       <MovieRatingModal

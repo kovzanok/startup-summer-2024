@@ -19,6 +19,7 @@ export function RatingButton({ userRating, onClick }: RatingButtonProps) {
       styles={{ root: { overflow: "visible" } }}
     >
       <StarIcon
+        style={{ minWidth: "28px" }}
         size={28}
         color={userRating ? theme.colors.purple[2] : theme.colors.slate[2]}
       />
