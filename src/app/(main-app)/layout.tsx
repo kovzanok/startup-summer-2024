@@ -20,14 +20,14 @@ export default function MainLayout({
     <AppShell
       layout="alt"
       withBorder={false}
-      header={{ height: 52, collapsed: isTablet }}
+      header={{ height: { base: 52, lg: 0 }, collapsed: isTablet }}
       navbar={{
         width: isLaptop ? 220 : 280,
         breakpoint: "sm",
         collapsed: { mobile: !opened },
       }}
     >
-      <AppShell.Header>
+      <AppShell.Header hiddenFrom="md">
         <Group p={12} justify="space-between">
           <Logo />
           <Burger opened={opened} onClick={toggle} size="sm" />
