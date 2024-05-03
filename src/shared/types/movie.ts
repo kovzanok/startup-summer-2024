@@ -51,7 +51,7 @@ type Video = {
   id: string;
 };
 
-type ProductionCompany = {
+export type ProductionCompany = {
   id: number;
   logo_path: string | null;
   name: string;

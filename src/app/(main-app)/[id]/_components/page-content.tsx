@@ -15,12 +15,13 @@ import Link from "next/link";
 import { Fragment, useContext, useMemo } from "react";
 
 import posterPlaceholder from "@/../public/poster-placeholder.png";
-import companyPlaceholder from "@/../public/production-company-placeholder.png";
 import { MovieRatingModal } from "@/features";
 import { RatingContext, RatingContextValue } from "@/shared/context";
 import { transformMoneyValue, transformRuntime } from "@/shared/lib";
 import { MovieDetails } from "@/shared/types";
 import { MovieInfo, RatingButton } from "@/shared/ui";
+
+import { CompaniesList } from "./companies-list";
 
 type PageContentProps = MovieDetails;
 
@@ -148,31 +149,12 @@ export function PageContent({
             Description
           </Title>
           <Text>{overview}</Text>
-          <Divider my={20} />
-          <Title order={4} fz={20} mb={16}>
-            Production
-          </Title>
-          <Flex direction="column" rowGap={12}>
-            {production_companies.map(({ id: companyId, name, logo_path }) => (
-              <Flex key={companyId} columnGap={8} align="center">
-                <Image
-                  style={{ border: `1px solid ${theme.colors.slate[3]}` }}
-                  component={NextImage}
-                  w={40}
-                  miw={40}
-                  width={40}
-                  h={40}
-                  height={40}
-                  radius="100%"
-                  fit="scale-down"
-                  src={`${process.env.NEXT_PUBLIC_IMAGE_SRC}/w500${logo_path}`}
-                  fallbackSrc={companyPlaceholder.src}
-                  alt={title}
-                />
-                <Text fw={700}>{name}</Text>
-              </Flex>
-            ))}
-          </Flex>
+          {production_companies.length !== 0 && (
+            <>
+              <Divider my={20} />
+              <CompaniesList companies={production_companies} />
+            </>
+          )}
         </Card>
       </Flex>
       <MovieRatingModal
