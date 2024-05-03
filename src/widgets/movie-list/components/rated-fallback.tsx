@@ -4,11 +4,17 @@ import Link from "next/link";
 
 import emptyMovieListSrc from "@/../public/empty-rated-list.png";
 
+import styles from "../styles.module.css";
+
 export function RatedFallback() {
   const theme = useMantineTheme();
   return (
     <Flex direction="column" align="center" rowGap={16}>
-      <Image src={emptyMovieListSrc} alt="No such movies" />
+      <Image
+        className={styles.image}
+        src={emptyMovieListSrc}
+        alt="No such movies"
+      />
       <Text fw={600} fz={20}>
         You haven&apos;t rated any films yet
       </Text>
