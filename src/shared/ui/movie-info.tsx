@@ -1,5 +1,6 @@
 import { Flex, Rating, Text, Title, useMantineTheme } from "@mantine/core";
 
+import { roundVotesCount } from "../lib";
 import { Movie } from "../types";
 
 type MovieInfoProps = Pick<
@@ -28,7 +29,7 @@ export function MovieInfo({
           {vote_average.toFixed(1)}
         </Text>
         <Text c={theme.colors.slate[1]} ml={4}>
-          ({vote_count})
+          ({roundVotesCount(vote_count)})
         </Text>
       </Flex>
     </Flex>
